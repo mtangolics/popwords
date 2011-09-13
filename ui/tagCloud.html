@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <script type="text/javascript" src="flare.js"></script>
+    <script type="text/javascript" src="protovis-d3.2.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.js"></script>
+    <style type="text/css">
+
+body {
+  margin: 0;
+}
+
+    </style>
+  </head>
+  <body>
+	<script type="text/javascript">
+		var list = jQuery.getJSON('lyrics.php?year=2010');
+		var array = list.Attribute;
+	</script>
+    <script type="text/javascript+protovis">
+	//var test = pv.flatten(flare).leaf(Number).array();
+	/* Produce a flat hierarchy of the Flare classes. */
+	var classes = pv.nodes(array);
+
+	var vis = new pv.Panel()
+		.width(document.body.clientWidth)
+		.height(document.body.clientHeight);
+
+	vis.add(pv.Layout.Pack)
+		.top(-50)
+		.bottom(-50)
+		.nodes(classes)
+		.size(function(d) d.nodeValue.Value)
+		.spacing(0)
+		.order(null)
+	  .node.add(pv.Dot)
+		.fillStyle(pv.Colors.category20().by(function(d) d.nodeValue.Name))
+		.strokeStyle(function() this.fillStyle().darker())
+		.visible(function(d) d.parentNode)
+		.title(function(d) d.nodeValue.Value)
+	  .anchor("center").add(pv.Label)
+		.text(function(d) d.nodeValue.Name);
+
+	vis.render();
+
+</script> 
+    </head>
+    <body>
+        <canvas id="tagCloud" style="background-color: #999999" width="600" height="600">
+        </canvas>
+    </body>
+</html>
