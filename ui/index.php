@@ -3,38 +3,22 @@
     <head>
     <script type="text/javascript" src="protovis-d3.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.js"></script>
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 	$(function() {
-		var wordCache;
+		var wordCache = {};
 		
-		$( "#slider-range" ).slider({
-			range: true,
-			min: 2000,
-			max: 2011,
-			values: [ 2010, 2011 ],
-			slide: function( event, ui ) {
-				$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-				updateCache(ui.values[0],ui.values[1]);
-			}
-		});
-		$( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + " - " + $( "#slider-range" ).slider( "values", 1 ) );
-		
-		var updateCache = function(min,max) {
-			for(var i = min; i <= max; i++)
-			{
-				if(eval(/*"wordCache[" + i + "]"*/true))
+		var selectYear = function(year) {
+				if(!wordCache[year])
 				{
-					console.log(i + " needs to be downloaded");
-					jQuery.getJSON('lyrics.php?year=2010', function(data) {
-						wordCache = data;
-						renderCloud(wordCache.Attribute);
+					jQuery.getJSON('lyrics.php?year=' + year, function(data) {
+						wordCache[year] = data;
+                        renderCloud(data.Attribute);
 					});
-					
 				}
-			}
+                else
+                {
+                    renderCloud(wordCache[year].Attribute);
+                }
 		};
 	});
 
@@ -74,6 +58,6 @@
 </script> 
     </head>
     <body>
-		<div id="slider-range"></div>
+		<select id="yearCombo"/>
     </body>
 </html>
