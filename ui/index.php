@@ -6,24 +6,28 @@
 	<script type="text/javascript">
 	$(function() {
 		var wordCache = {};
+        
+	        var sortMap = function(a,b)
+	        {
+	            return b.Value - a.Value;
+	        }
+
 		
 		var selectYear = function(year) {
-				if(!wordCache[year])
-				{
-					jQuery.getJSON('lyrics.php?year=' + year, function(data) {
-						wordCache[year] = data;
-                        renderCloud(data.Attribute);
-					});
-				}
-                else
-                {
-                    renderCloud(wordCache[year].Attribute);
-                }
+			if(!wordCache[year])
+			{
+				jQuery.getJSON('lyrics.php?year=' + year, function(data) {
+		                        var lyricMap = data.Attribute.sort(sortMap);
+		                        lyricMap = lyricMap.slice(0,30);
+					wordCache[year] = lyricMap;
+		                        renderCloud(lyricMap);
+				});
+			}
+	                else
+	                {
+	                    renderCloud(wordCache[year]);
+	                }
 		};
-		
-		jQuery("#yearCombo").change(function(event) {
-			selectYear(jQuery(this).val());
-		});
 	});
 
 
