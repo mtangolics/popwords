@@ -18,7 +18,7 @@
 			{
 				jQuery.getJSON('lyrics.php?year=' + year, function(data) {
 		                        var lyricMap = data.Attribute.sort(sortMap);
-		                        lyricMap = lyricMap.slice(0,30);
+		                        lyricMap = lyricMap.slice(0,40);
 					wordCache[year] = lyricMap;
 		                        renderCloud(lyricMap);
 				});
@@ -28,6 +28,10 @@
 	                    renderCloud(wordCache[year]);
 	                }
 		};
+		
+		jQuery("#yearCombo").change(function(event) {
+			selectYear(jQuery(this).val());
+		});
 	});
 
 
