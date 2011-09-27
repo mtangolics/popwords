@@ -2,7 +2,7 @@
 import boto
 
 def insertYearData(freqTable,year,awskey,awssecret):
-    
+    print("using awskey:" + awskey + " and awssecret:" + awssecret)
     sdb = boto.connect_sdb(awskey,awssecret)
     print(sdb)
     if sdb:

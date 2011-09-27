@@ -18,14 +18,14 @@ def getLyrics(artist,name):
         if "Not found" not in resp.lyrics:
             lyrics = resp.lyrics
             
-            lyrics = re.sub(r'[\(\)\,\.\?\!\"|\[.{0,2}\]|\\x.{2}]',"",lyrics)
+            lyrics = re.sub(r'[\(\)\,\.\?\!\"|\[.{0,2}\]|(x\d)]',"",lyrics)
 
             return lyrics.split()
     return None
 
 # Returns dict of artist/song combos for specified year
-def getYear(year):
-    url = "http://api.billboard.com/apisvc/chart/v1/list?id=379&format=json&count=50&sdate=" + year + "-01-01&edate=" + year + "-12-31&api_key=8a4htjchzex44rax3byrye2f"
+def getYear(year,bbkey):
+    url = "http://api.billboard.com/apisvc/chart/v1/list?id=379&format=json&count=50&sdate=" + year + "-01-01&edate=" + year + "-12-31&api_key=" + bbkey
     req = urllib2.Request(url)
     doc = urllib2.urlopen(req)
     content = str(doc.read())
@@ -56,7 +56,7 @@ def buildFreqTable(songlist):
     for song in songlist:
         for lyric in song:
             if lyric:
-                lyric = lyric.lower()
+                lyric = lyric.lower().encode("utf-8")
                 if lyric not in common_words:
                     if lyric in freqTable:
                         freqTable[lyric] += 1

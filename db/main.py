@@ -5,8 +5,8 @@ import db
 import sys
 
 if __name__ == '__main__':
-    year = "2010"
-    map = data.getYear(year)
+    year = sys.argv[4]
+    map = data.getYear(year,sys.argv[3])
     print(map)
     songs = list()
     for artist in map:
@@ -21,5 +21,5 @@ if __name__ == '__main__':
 
     print(alist)
     
-    db.insertYearData(alist,year,sys.argv[0],sys.argv[1])
+    db.insertYearData(alist,year,sys.argv[1],sys.argv[2])
     pass
