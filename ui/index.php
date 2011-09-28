@@ -1,6 +1,20 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+	<style type="text/css">
+		body {
+			font-family: Verdana;
+		}
+		h1 {
+			text-align: center;
+		}
+		div#menu, div#container {
+			text-align: center;
+			width: 650px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
     <script type="text/javascript" src="protovis-d3.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.js"></script>
 	<script type="text/javascript">
@@ -32,6 +46,7 @@
 		jQuery("#yearCombo").change(function(event) {
 			selectYear(jQuery(this).val());
 		});
+		jQuery("#yearCombo").change();
 	});
 
 
@@ -47,7 +62,8 @@
 
 		var vis = new pv.Panel()
 			.width(600)
-			.height(600);
+			.height(600)
+			.canvas("visualization");
 
 		vis.add(pv.Layout.Pack)
 			.top(-50)
@@ -63,25 +79,31 @@
 			.title(function(d) d.nodeValue.Value)
 		  .anchor("center").add(pv.Label)
 			.text(function(d) d.nodeValue.Name);
-
+			
 		vis.render();
 	}
 
 </script> 
     </head>
     <body>
-		<select id="yearCombo">
-			<option value="2010">2010</option>
-			<option value="2009">2009</option>
-			<option value="2008">2008</option>
-			<option value="2007">2007</option>
-			<option value="2006">2006</option>
-			<option value="2005">2005</option>
-			<option value="2004">2004</option>
-			<option value="2003">2003</option>
-			<option value="2002">2002</option>
-			<option value="2001">2001</option>
-			<option value="2000">2000</option>
-		</select>
-    </body>
+		<h1>PopWords</h1>
+		<div id="menu">
+			Select a Year: <select id="yearCombo">
+				<option value="2010">2010</option>
+				<option value="2009">2009</option>
+				<option value="2008">2008</option>
+				<option value="2007">2007</option>
+				<option value="2006">2006</option>
+				<option value="2005">2005</option>
+				<option value="2004">2004</option>
+				<option value="2003">2003</option>
+				<option value="2002">2002</option>
+				<option value="2001">2001</option>
+				<option value="2000">2000</option>
+			</select>
+		</div>
+		<div id="container">
+			<div id="visualization"/>
+		</div>
+	</body>
 </html>
