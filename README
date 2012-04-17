@@ -1,0 +1,11 @@
+PopWords
+
+This little hobby project came about because I wanted to see if certain words appeared in pop music lyrics more often than others.
+
+I used (learned) Python to acquire the songs from Billboard's API. The lyrics were a bit more challenging since the content needed to be cleaned, which resulted in some of the horribly hacky code in data.py.
+The frequency tables were stored in Amazon's SimpleDB and pulled into the UI using PHP.
+
+The frontend was done using JavaScript and the protovis visualization library.
+
+Note: The frequency tables are cached in Amazon SimpleDB beforehand so that I don't have to call the 2 APIs everytime. (Also to prevent API changes from breaking the visualization)
+
