@@ -9,3 +9,4 @@ The frontend was done using JavaScript and the protovis visualization library.
 
 Note: The frequency tables are cached in Amazon SimpleDB beforehand so that I don't have to call the 2 APIs everytime. (Also to prevent API changes from breaking the visualization)
 
+1/6/16: Billboard appears to have shutdown their API, so this code is only partially functional now.
